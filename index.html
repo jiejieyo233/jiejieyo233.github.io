@@ -17,9 +17,9 @@
         .rectangle {
     flex: 1; /* 平均分配宽度 */
     border-radius: 20px;
-    margin: 10px;
+    margin: 5px;
     padding: 20px;
-    transition: all 0.5s ease; /* 添加过渡效果 */
+    transition: all 1s ease; /* 添加过渡效果 */
     background-size: cover; /* 初始状态下覆盖整个区域 */
     background-repeat: no-repeat; /* 背景图片不重复 */
     background-position: center; /* 背景图片居中 */
@@ -33,22 +33,22 @@
 
         /* 第二个矩形的背景图片 */
         .rectangle:nth-child(2) {
-            background-image: url('3.jpg');
+            background-image: url('scene.jpg');
         }
 
         /* 第三个矩形的背景图片 */
         .rectangle:last-child {
-            background-image: url('3.jpg');
+            background-image: url('snow_sad.jpg');
         }
 
         /* 鼠标悬停时的样式 */
         .rectangle:hover {
-            flex: 2; /* 覆盖页面的2/3 */
+            flex: 3; /* 覆盖页面的2/3 */
         }
 
         /* 其他矩形的样式 */
         .rectangle:not(:hover) {
-            flex: 0.5; /* 挤压其他矩形 */
+            flex: 0.4; /* 挤压其他矩形 */
         }
     </style>
 </head>
