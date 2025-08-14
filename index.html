@@ -3,72 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flex Cards with Slide-in Text</title>
     <style>
+        /* 引入一个免费的中文在线字体 */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;700&display=swap');
+
         /* 设置整个网页的样式 */
         body {
             margin: 0;
             padding: 0;
             display: flex;
             flex-direction: row;
-            height: 100vh; /* 100% 视口高度 */
+            height: 100vh;
+            font-family: 'Noto Sans SC', sans-serif;
+            background: #232323;
+            overflow: hidden;
         }
 
         /* 设置每个圆角矩形的基本样式 */
         .rectangle {
-    flex: 1; /* 平均分配宽度 */
-    border-radius: 20px;
-    margin: 5px;
-    padding: 20px;
-    transition: all 1s ease; /* 添加过渡效果 */
-    background-size: cover; /* 初始状态下覆盖整个区域 */
-    background-repeat: no-repeat; /* 背景图片不重复 */
-    background-position: center; /* 背景图片居中 */
-    border: 2px solid black; /* 添加黑色边框 */
-}
+            flex: 1;
+            border-radius: 20px;
+            margin: 10px;
+            position: relative;
+            overflow: hidden;
+            /* 鼠标离开时的收回速度 */
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+            cursor: pointer;
+            color: white;
+        }
 
-        /* 第一个矩形的背景图片 */
-        .rectangle:first-child {
+        /* 背景图容器 */
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100vw;
+            height: 100%;
+            background-size: cover;
+            background-position: center center;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* 内容容器样式 */
+        .content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 2;
+            
+            /* 默认状态：在卡片下方隐藏 */
+            opacity: 0;
+            transform: translateY(100%);
+            
+            transition: opacity 0.4s ease-out, transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        /* 鼠标悬停时，让文字滑入并显示 */
+        .rectangle:hover .content {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .rectangle h1 {
+            margin: 0;
+            font-weight: 700;
+            font-size: 1.8rem;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+        }
+
+        .rectangle p {
+            margin: 5px 0 0;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        /* 将背景图应用到新的容器上 */
+        .rectangle:first-child .background-image {
             background-image: url('3.jpg');
         }
 
-        /* 第二个矩形的背景图片 */
-        .rectangle:nth-child(2) {
+        .rectangle:nth-child(2) .background-image {
             background-image: url('scene.jpg');
         }
 
-        /* 第三个矩形的背景图片 */
-        .rectangle:last-child {
+        .rectangle:last-child .background-image {
             background-image: url('snow_sad.jpg');
         }
 
-        /* 鼠标悬停时的样式 */
+        /* 交互效果 */
         .rectangle:hover {
-            flex: 3; /* 覆盖页面的2/3 */
+            flex: 5;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+            /* 鼠标放上时的张开速度 */
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        body:hover .rectangle:not(:hover) {
+            flex: 0.6;
+            /* 鼠标放上时，其他卡片的收缩速度 */
+            transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
-        /* 其他矩形的样式 */
-        .rectangle:not(:hover) {
-            flex: 0.4; /* 挤压其他矩形 */
+        /* 响应式布局 - 适应手机竖屏 */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            .rectangle {
+                margin: 10px 10px;
+            }
+
+            .background-image {
+                width: 100%;
+                height: 100vh;
+                left: 0;
+                transform: translateY(-50%) translateX(0);
+                top: 50%;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- 第一个圆角矩形 -->
     <div class="rectangle">
-        <h1>高兴了</h1>
-        <p>想看了看吧</p>
+        <div class="background-image"></div>
+        <div class="content">
+            <h1>高兴了</h1>
+            <p>想看了看吧</p>
+        </div>
     </div>
 
-    <!-- 第二个圆角矩形 -->
     <div class="rectangle">
-        <h1>不高兴</h1>
-        <p>别看了</p>
+        <div class="background-image"></div>
+        <div class="content">
+            <h1>不高兴</h1>
+            <p>别看了</p>
+        </div>
     </div>
 
-    <!-- 第三个圆角矩形 -->
     <div class="rectangle">
-        <h1>呵</h1>
-        <p>你想看？</p>
+        <div class="background-image"></div>
+        <div class="content">
+            <h1>呵</h1>
+            <p>你想看？</p>
+        </div>
     </div>
 </body>
 </html>

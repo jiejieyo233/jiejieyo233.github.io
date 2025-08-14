@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "*.py": "python",
+        "xhash": "cpp",
+        "xstring": "cpp",
+        "xutility": "cpp",
+        "utility": "cpp"
+    }
+}
